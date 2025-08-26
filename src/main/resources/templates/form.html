@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script th:src="@{/webjars/jquery/jquery.min.js}" defer></script> 
+	<script th:src="@{/form.js}" defer></script>
+<title>Sample</title>
+</head>
+
+<body>
+	<form method="post" th:action="@{/logout}">
+		<button>ログアウト</button>
+	</form>
+	<label th:text="'ログインユーザーID：' + ${loginUserId}"></label>
+
+	
+	<!-- ここから下が基本形 -->	
+    <form id="sample_form" th:action="@{/form/confirm}" th:object="${myModel}" method="post">
+        <div>
+            <label for="message">メッセージ：</label>
+            <input type="text" th:field="*{message}">
+			<div th:errors="*{message}"></div><!-- thymeleaf側でのvalidationエラーメッセージ取得-->
+            <br>
+        </div>
+        <button>送信</button>
+    </form>
+    <button id="rest_button">すぐに確認</button>
+</body>
+</html>
