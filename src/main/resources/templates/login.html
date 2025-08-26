@@ -27,8 +27,23 @@
 		    <label for="password">パスワード：</label>
 		    <input type="password" th:field="*{password}" class="form-control">
 		</div>
-    <input type="submit" value="ログイン" class="btn btn-primary">
+    <input type="submit" th:value="#{login.button}" class="btn btn-primary">
 	</form>
-
+	<label>作成履歴：</label>
+	<table align="center">
+	<thead>
+	<tr>
+	<th>日付</th>
+	<th>作成内容</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr th:each="item : ${historyDtoList}">
+	<td th:text="${item.dateStr}"></td>
+	<td th:text="${item.historyText}"></td>
+	</tr>
+	</tbody>
+	</table>
+</div>
 </body>
 </html>
