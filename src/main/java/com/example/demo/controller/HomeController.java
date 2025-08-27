@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.domain.sendKind.model.SendKind;
+import com.example.demo.domain.sendKind.service.SendKindService;
 import com.example.demo.model.GroupOrder;
 import com.example.demo.model.MyModel;
 import com.example.demo.service.PrintService;
@@ -44,6 +46,9 @@ public class HomeController {
 	@Autowired //for Validation
 	private MessageSource messageSource;
 	
+	@Autowired //added for jpa
+	private SendKindService sendKindService;
+	
     // getメソッド（直接リンク含む）でアクセスされた場合の処理
     @GetMapping("") // 個別のパス指定
     public String readForm(Model model, @ModelAttribute MyModel myModel) {
@@ -66,10 +71,11 @@ public class HomeController {
     {
 
     	//バリデーションエラーがある場合にtrue
+    	//地域情報を格納するオブジェクト
     	if (bindingResult.hasErrors()) {
     		// Java側でエラーメッセージを取得する場合の記述方法
     		for (FieldError error : bindingResult.getFieldErrors()) {
-    			String message = messageSource.getMessage(error,locale);
+ 			String message = messageSource.getMessage(error,locale);
     		System.out.println("バリデーションエラー : " + message);
     		}
 
@@ -79,8 +85,13 @@ public class HomeController {
     		// バリデーションエラーの場合は"form"から先に遷移しない
     		return "form";
     	}
-
+    	//AOP test
     	printService.print(myModel.getMessage());
+    	
+    	// O/Rマッパーのテスト
+    	SendKind sendKind = sendKindService.findByKindId("0001");
+    	System.out.println(sendKind.getKindName());
+    	
     	return "confirm"; // 表示するhtmlのパス指定。
     }
 }
