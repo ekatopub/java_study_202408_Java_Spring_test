@@ -11,6 +11,8 @@ public interface MessageService {
   
   /** 削除(全件) */
   @Transactional // メソッドを抜ける時にcommit発行
+
 //  public int deleteAll(); //独自メソッドの場合
   public long deleteAll(); //標準メソッドの場合
+
 }

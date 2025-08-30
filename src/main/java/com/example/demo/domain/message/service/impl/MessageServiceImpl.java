@@ -20,8 +20,10 @@ public class MessageServiceImpl implements MessageService {
   }
   /** 全件削除 */
   @Override
+
 //  public int deleteAll() {　//独自メソッドの場合
   public long deleteAll() {	  //標準メソッドの場合
+
     return dao.deleteByKindId("0001");
   }
 }

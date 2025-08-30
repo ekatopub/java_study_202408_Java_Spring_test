@@ -1,5 +1,6 @@
 package com.example.demo.domain.message.model;
 
+
 import java.io.Serializable;
 
 import javax.persistence.Entity;
@@ -12,12 +13,18 @@ import lombok.Data;
 @Entity
 @Table(name="message")
 
+
 //主キーの組み合わせを外部クラスで指定（複合キーなら必須）
 @IdClass(value=MessageKey.class)
 
+/*
+@Data
+public class Message {
+*/
 @Data
 //複合キーはSerializable必須（ないとコンパイルエラー）
 public class Message implements Serializable {
+
 
   // ID
   @Id // 主キーに対して付与
