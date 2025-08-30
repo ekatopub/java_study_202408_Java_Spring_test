@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.demo.domain.message.model.Message;
+import com.example.demo.domain.message.service.MessageService;
 import com.example.demo.domain.sendKind.model.SendKind;
 import com.example.demo.domain.sendKind.service.SendKindService;
 import com.example.demo.model.GroupOrder;
@@ -46,8 +48,12 @@ public class HomeController {
 	@Autowired //for Validation
 	private MessageSource messageSource;
 	
+	@SuppressWarnings("unused")
 	@Autowired //added for jpa
 	private SendKindService sendKindService;
+	
+	@Autowired //added for Message Insert
+	private MessageService messageService;
 	
     // getメソッド（直接リンク含む）でアクセスされた場合の処理
     @GetMapping("") // 個別のパス指定
@@ -91,6 +97,14 @@ public class HomeController {
     	// O/Rマッパーのテスト
     	SendKind sendKind = sendKindService.findByKindId("0001");
     	System.out.println(sendKind.getKindName());
+    	//added for Message Insert	
+    	String KIND_CD_MESSAGE = "0001";
+    	Message message = new Message();
+    	//message.setId(1); // 常にid=1をアップデート
+    	System.out.println(messageService.deleteAll() + " 件削除 ");
+    	message.setKindId(KIND_CD_MESSAGE);
+    	message.setText(myModel.getMessage());
+    	messageService.postText(message);
     	
     	return "confirm"; // 表示するhtmlのパス指定。
     }
