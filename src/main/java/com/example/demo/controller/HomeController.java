@@ -57,9 +57,11 @@ public class HomeController {
 	@Autowired //added for Message Insert
 	private MessageService messageService;
 	
+
 	@Autowired //added for JOINt
 	private SendKindMessageService sendKindMessageService;
 	
+
     // getメソッド（直接リンク含む）でアクセスされた場合の処理
     @GetMapping("") // 個別のパス指定
     public String readForm(Model model, @ModelAttribute MyModel myModel) {
@@ -109,6 +111,7 @@ public class HomeController {
     	System.out.println(messageService.deleteAll() + " 件削除 ");
     	message.setKindId(KIND_CD_MESSAGE);
     	message.setText(myModel.getMessage());
+
     	messageService.postText(message);*/
     	
     	String KIND_CD_MESSAGE = "0001";
@@ -129,6 +132,7 @@ public class HomeController {
 
     	myModel.setMessage(displayMessage);
     	
+
     	
     	return "confirm"; // 表示するhtmlのパス指定。
     }
